@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zera'nın Doğum Gülü 🌙</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --deep-night: #0d0f1a;
+      --cream: #f0e8d8;
+      --cream-soft: #e8ddc8;
+      --cream-dim: #c8bba0;
+      --gold: #c9a84c;
+      --gold-dim: #8a6f2e;
+      --rose: #8b3a52;
+      --text-main: #e8ddc8;
+      --text-dim: #a09880;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { height: 100%; }
+
+    body {
+      height: 100%;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--deep-night);
+      color: var(--text-main);
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+
+    /* scrollable pages: when active, body overflow must yield */
+    body.is-scrollable {
+      overflow: auto;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+    /* STARS */
+    .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .star {
+      position: absolute; border-radius: 50%; background: white;
+      animation: twinkle var(--dur) ease-in-out infinite var(--delay);
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: var(--min-op); transform: scale(1); }
+      50%      { opacity: var(--max-op); transform: scale(1.4); }
+    }
+
+    /* GLOW */
+    .glow-orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+    .glow-orb-1 { width:300px; height:300px; background:rgba(139,58,82,0.07); top:-80px; right:-80px; }
+    .glow-orb-2 { width:250px; height:250px; background:rgba(28,34,64,0.4); bottom:-60px; left:-60px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 2.2rem;
+      background:linear-gradient(to bottom,rgba(13,15,26,0.96) 0%,transparent 100%);
+    }
+    .nav-logo {
+      font-family:'Cinzel',serif; font-size:0.9rem; letter-spacing:0.2em;
+      color:var(--gold); text-decoration:none; cursor:pointer;
+    }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a {
+      font-family:'Cormorant Garamond',serif; font-size:0.9rem;
+      letter-spacing:0.12em; color:var(--cream-dim); text-decoration:none;
+      transition:color 0.3s; position:relative;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-3px; left:0;
+      width:0; height:1px; background:var(--gold); transition:width 0.3s;
+    }
+    .nav-links a:hover { color:var(--cream); }
+    .nav-links a:hover::after { width:100%; }
+
+    /* ── PAGE BASE ──
+       Fixed pages fill the viewport exactly — no scroll possible.
+       Exceptions: page4 (mektup) and page-all scroll naturally. */
+    .page {
+      position: fixed;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4.5rem 2rem 1.5rem;
+      z-index: 10;
+      animation: pageIn 0.8s ease forwards;
+    }
+    .page.active { display: flex; }
+
+    /* scrollable pages — override fixed with absolute so body can scroll */
+    #page4, #page-all {
+      position: absolute;
+      inset: auto;
+      width: 100%;
+      min-height: 100vh;
+      overflow-y: visible;
+      justify-content: flex-start;
+      padding-top: 5.5rem;
+    }
+
+    @keyframes pageIn {
+      from { opacity:0; transform:translateY(14px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ORNAMENT */
+    .ornament {
+      display:flex; align-items:center; justify-content:center;
+      gap:0.9rem; width:100%; max-width:320px;
+      margin:0.75rem 0; color:var(--gold-dim); font-size:0.85rem;
+    }
+    .ornament::before,.ornament::after {
+      content:''; flex:1; height:1px;
+    }
+    .ornament::before { background:linear-gradient(to right,transparent,var(--gold-dim)); }
+    .ornament::after  { background:linear-gradient(to left,transparent,var(--gold-dim)); }
+
+    /* ── BUTTONS — identical size for both ── */
+    .btn-primary, .btn-ghost {
+      padding: 0.72rem 2.2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      cursor: pointer;
+      border: 1px solid;
+      background: transparent;
+      transition: all 0.35s;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      color: var(--cream);
+      border-color: var(--gold-dim);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content:''; position:absolute; inset:0;
+      background:var(--gold-dim); transform:scaleX(0);
+      transform-origin:left; transition:transform 0.35s ease; z-index:-1;
+    }
+    .btn-primary:hover { color:var(--deep-night); border-color:var(--gold); }
+    .btn-primary:hover::before { transform:scaleX(1); }
+
+    .btn-ghost { color:var(--cream-dim); border-color:rgba(200,187,160,0.25); }
+    .btn-ghost:hover { color:var(--cream); border-color:rgba(200,187,160,0.6); }
+
+    .nav-row {
+      display:flex; gap:1rem; margin-top:1.2rem;
+      justify-content:center; align-items:center; flex-wrap:wrap;
+    }
+
+    /* TYPOGRAPHY */
+    .page-eyebrow {
+      font-family:'Cinzel',serif; font-size:0.65rem;
+      letter-spacing:0.35em; color:var(--gold-dim);
+      margin-bottom:0.35rem; text-align:center;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 1
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #page1 { text-align:center; }
+
+    .moon-icon {
+      font-size:2.6rem; display:block; margin-bottom:0.3rem;
+      animation:floatMoon 4s ease-in-out infinite;
+      filter:drop-shadow(0 0 14px rgba(100,120,220,0.5));
+    }
+    @keyframes floatMoon {
+      0%,100% { transform:translateY(0) rotate(-4deg); }
+      50%      { transform:translateY(-10px) rotate(4deg); }
+    }
+
+    .p1-date {
+      font-family:'IM Fell English',serif; font-style:italic;
+      font-size:0.88rem; letter-spacing:0.14em; color:var(--gold-dim);
+    }
+    .p1-title {
+      font-family:'Cormorant Garamond',serif; font-weight:300;
+      font-size:clamp(1.3rem,3.8vw,2.2rem); line-height:1.65;
+      color:var(--cream); max-width:480px;
+      text-shadow:0 0 60px rgba(201,168,76,0.12);
+    }
+    .p1-title em { font-style:italic; color:var(--cream-soft); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 2
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #page2 { text-align:center; }
+
+    .music-wrap {
+      display:flex; flex-direction:column; align-items:center;
+      margin:0.5rem 0 0.7rem;
+    }
+
+    .vinyl {
+      width:150px; height:150px; border-radius:50%;
+      background:radial-gradient(circle at center,
+        #1a1a2e 0%,#1a1a2e 28%,#2a2040 30%,#1a1a2e 32%,
+        #0d0f1a 50%,#1c1c2e 60%,#0d0f1a 70%,#1c1c2e 80%,
+        #0d0f1a 90%,#1c1c2e 100%);
+      box-shadow:0 0 36px rgba(201,168,76,0.18),inset 0 0 18px rgba(0,0,0,0.5);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .vinyl.spinning { animation:spin 4s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .vinyl-center {
+      width:38px; height:38px; border-radius:50%;
+      background:var(--rose);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.48rem; color:var(--cream-dim); letter-spacing:0.05em;
+    }
+
+    .music-info { margin-top:0.8rem; text-align:center; }
+    .music-title {
+      font-family:'IM Fell English',serif; font-style:italic;
+      font-size:1.1rem; color:var(--cream-soft);
+    }
+    .music-artist {
+      font-size:0.8rem; color:var(--text-dim);
+      letter-spacing:0.15em; margin-top:0.18rem;
+    }
+
+    audio { display:none; }
+
+    /* SVG play/pause — always perfectly centered */
+    .play-btn {
+      width:46px; height:46px; border-radius:50%;
+      border:1px solid var(--gold-dim); background:transparent;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      margin:0.8rem auto 0; transition:all 0.3s; padding:0;
+    }
+    .play-btn svg { width:15px; height:15px; fill:var(--cream); transition:fill 0.3s; display:block; }
+    .play-btn:hover { background:rgba(201,168,76,0.12); border-color:var(--gold); }
+    .play-btn:hover svg { fill:var(--gold); }
+
+    .playlist-box {
+      margin-top:0.75rem; padding:0.85rem 1.8rem;
+      border:1px solid rgba(201,168,76,0.18);
+      background:rgba(255,255,255,0.02); text-align:center;
+      width:100%; max-width:320px;
+    }
+    .playlist-label {
+      font-family:'Cinzel',serif; font-size:0.62rem;
+      letter-spacing:0.3em; color:var(--gold-dim); margin-bottom:0.45rem;
+    }
+    .playlist-link {
+      font-family:'IM Fell English',serif; font-style:italic;
+      font-size:0.97rem; color:var(--cream-soft); text-decoration:none; transition:color 0.3s;
+    }
+    .playlist-link:hover { color:var(--gold); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 3  (video only)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #page3 { text-align:center; }
+
+    /* Portrait 9:16 — height drives size, max 68vh */
+    .vfw {
+      position:relative;
+      height:min(68vh, 75vw * 16/9);
+      width:calc(min(68vh, 75vw * 16/9) * 9/16);
+      max-width:320px;
+      margin:0 auto;
+    }
+    .vf-border {
+      position:absolute; inset:-10px;
+      border:1px solid rgba(201,168,76,0.22);
+      pointer-events:none; z-index:2;
+    }
+    .vf-c {
+      position:absolute; width:14px; height:14px;
+      border-color:var(--gold-dim); border-style:solid; z-index:3;
+    }
+    .vf-c.tl { top:-13px;  left:-13px;  border-width:2px 0 0 2px; }
+    .vf-c.tr { top:-13px;  right:-13px; border-width:2px 2px 0 0; }
+    .vf-c.bl { bottom:-13px; left:-13px;  border-width:0 0 2px 2px; }
+    .vf-c.br { bottom:-13px; right:-13px; border-width:0 2px 2px 0; }
+
+    .vfw iframe {
+      position:absolute; inset:0; width:100%; height:100%; border:none; display:block;
+      background:#000;
+    }
+    .video-caption {
+      margin-top:1.3rem; font-family:'IM Fell English',serif;
+      font-style:italic; font-size:0.95rem; color:var(--text-dim);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 4 — MEKTUP (scrolls)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #page4 { text-align:center; align-items:center; }
+
+    .letter-wrap {
+      max-width:560px; width:100%; margin:1rem auto 0;
+      padding:2.2rem 2.8rem; text-align:left;
+      background:rgba(240,232,216,0.03);
+      border:1px solid rgba(201,168,76,0.15); position:relative;
+    }
+    .letter-wrap::before {
+      content:''; position:absolute;
+      top:9px;left:9px;right:9px;bottom:9px;
+      border:1px solid rgba(201,168,76,0.07); pointer-events:none;
+    }
+    .letter-date {
+      font-family:'Cinzel',serif; font-size:0.7rem;
+      letter-spacing:0.2em; color:var(--gold-dim); margin-bottom:1.6rem;
+    }
+    .letter-salut {
+      font-family:'IM Fell English',serif; font-style:italic;
+      font-size:1.2rem; color:var(--cream-soft); margin-bottom:1.1rem;
+    }
+    #letter-body {
+      font-family:'Cormorant Garamond',serif; font-weight:300;
+      font-size:1.05rem; line-height:1.9; color:var(--text-main); min-height:150px;
+    }
+    .cursor {
+      display:inline-block; width:2px; height:1em;
+      background:var(--gold-dim); margin-left:1px;
+      vertical-align:text-bottom; animation:blink 0.8s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+    .letter-sign {
+      margin-top:1.8rem; font-family:'IM Fell English',serif;
+      font-style:italic; font-size:1.1rem;
+      color:var(--cream-dim); text-align:right;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PAGE 5 — FİNALE
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #page5 { text-align:center; }
+
+    .finale-inner {
+      display:flex; flex-direction:column; align-items:center;
+      opacity:0; animation:finaleIn 2s ease 0.7s forwards;
+    }
+    @keyframes finaleIn {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .finale-msg {
+      font-family:'IM Fell English',serif; font-style:italic;
+      font-size:clamp(1.05rem,3.3vw,1.7rem); line-height:1.95;
+      color:var(--cream-soft); max-width:440px; text-align:center;
+      text-shadow:0 0 80px rgba(201,168,76,0.16);
+    }
+    /* ornament inside finale-inner — already centered by flexbox */
+    .finale-date {
+      font-family:'Cinzel',serif; font-size:0.9rem;
+      letter-spacing:0.45em; color:var(--gold-dim); text-align:center;
+    }
+    .finale-moon {
+      font-size:1.6rem; display:block; opacity:0.75; margin-top:0.5rem;
+      animation:floatMoon 5s ease-in-out infinite;
+      filter:drop-shadow(0 0 16px rgba(100,120,200,0.4));
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       ALL CONTENT (scrolls)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #page-all { align-items:flex-start; }
+    .all-grid { max-width:700px; width:100%; margin:0 auto; padding-bottom:4rem; }
+    .all-header { margin-bottom:1.8rem; }
+
+    .all-section {
+      margin-bottom:2.5rem; padding-bottom:2.2rem;
+      border-bottom:1px solid rgba(201,168,76,0.1);
+    }
+    .all-section:last-child { border-bottom:none; }
+    .all-label { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.35em; color:var(--gold-dim); margin-bottom:0.4rem; }
+    .all-title { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.4rem; color:var(--cream-soft); margin-bottom:0.5rem; }
+    .all-body  { font-size:0.95rem; line-height:1.8; color:var(--text-dim); }
+    .go-btn {
+      display:inline-block; margin-top:0.7rem;
+      font-family:'Cinzel',serif; font-size:0.65rem;
+      letter-spacing:0.2em; color:var(--gold-dim); cursor:pointer;
+      background:none; border:none; border-bottom:1px solid rgba(201,168,76,0.28);
+      padding-bottom:2px; transition:color 0.3s,border-color 0.3s;
+    }
+    .go-btn:hover { color:var(--gold); border-color:var(--gold); }
+
+    /* RESPONSIVE */
+    @media (max-width:600px) {
+      nav { padding:0.85rem 1.1rem; }
+      .letter-wrap { padding:1.6rem 1.3rem; }
+      .playlist-box { padding:0.8rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<audio id="bgMusic" loop>
+  <source src="assets/music/sevgilim.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo" onclick="showPage('page1')">🌙 ZERA</span>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('page1');return false;">Deneyim</a></li>
+    <li><a href="#" onclick="showPage('page-all');return false;">Tüm İçerik</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+  <span class="moon-icon">🌙</span>
+  <p class="p1-date">17 Şubat</p>
+  <div class="ornament">✦</div>
+  <p class="p1-title">
+    Bugün dünyaya<br />
+    <em>en değerli varlığım</em> geldi.<br />
+    Doğum gülün kutlu olsun sevgilim!
+  </p>
+  <div class="ornament">✦</div>
+  <button class="btn-primary" onclick="startExperience()">Hazırsan Başla</button>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+  <p class="page-eyebrow">SENİN İÇİN</p>
+  <div class="ornament">✦</div>
+
+  <div class="music-wrap">
+    <div class="vinyl" id="vinyl">
+      <div class="vinyl-center">PERA</div>
+    </div>
+    <div class="music-info">
+      <p class="music-title">Sevgilim İyi ki Doğdun</p>
+      <p class="music-artist">P E R A</p>
+    </div>
+    <button class="play-btn" id="playBtn" onclick="toggleMusic()" aria-label="Oynat/Durdur">
+      <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+  </div>
+
+  <div class="playlist-box">
+    <p class="playlist-label">SANA ÖZEL PLAYLIST</p>
+    <!-- ✏️ LİNKİNİ BURAYA KOY -->
+    <a class="playlist-link" href="https://open.spotify.com/playlist/SENIN_LINKIN_BURAYA" target="_blank">
+      ♫ Hep seninle dinlemek istediklerim →
+    </a>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn-ghost"   onclick="showPage('page1')">← Geri</button>
+    <button class="btn-primary" onclick="showPage('page3')">İleri →</button>
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page" id="page3">
+  <div class="vfw">
+    <div class="vf-border"></div>
+    <div class="vf-c tl"></div><div class="vf-c tr"></div>
+    <div class="vf-c bl"></div><div class="vf-c br"></div>
+    <!-- ✏️ BURAYA_VIDEO_ID_GELECEK → senin YouTube video ID -->
+    <iframe
+      src="https://www.youtube.com/embed/BURAYA_VIDEO_ID_GELECEK?rel=0&modestbranding=1"
+      title="Sana özel video"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <p class="video-caption">Seninle olan her an bir hazine.</p>
+
+  <div class="nav-row">
+    <button class="btn-ghost"   onclick="showPage('page2')">← Geri</button>
+    <button class="btn-primary" onclick="showPage('page4')">İleri →</button>
+  </div>
+</section>
+
+<!-- ✏️ MEKTUP İÇERİĞİ → assets/mektup.js dosyasını düzenle -->
+<script src="assets/mektup.js"></script>
+
+<!-- PAGE 4 -->
+<section class="page" id="page4">
+  <p class="page-eyebrow">KALBIMDEN</p>
+  <div class="ornament">✦</div>
+
+  <div class="letter-wrap">
+    <p class="letter-date">17 Şubat 2026</p>
+    <p class="letter-salut">Sevgili Zera,</p>
+    <div id="letter-body"><span class="cursor"></span></div>
+    <p class="letter-sign" id="letter-sign" style="opacity:0">— Seninle olmak isteyenim</p>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn-ghost"   onclick="showPage('page3')">← Geri</button>
+    <button class="btn-primary" onclick="showPage('page5')">İleri →</button>
+  </div>
+</section>
+
+<!-- PAGE 5 -->
+<section class="page" id="page5">
+  <div class="finale-inner">
+    <p class="finale-msg">
+      Şimdi şehirler uzak olabilir.<br />
+      Ama ben, ilk fırsatta yanındayım.<br /><br />
+      <em>İyi ki doğdun sevgilim.</em>
+    </p>
+    <div class="ornament">✦</div>
+    <p class="finale-date">17 · 02 · 2026</p>
+    <span class="finale-moon">🌙</span>
+  </div>
+  <div class="nav-row" style="margin-top:1.5rem;">
+    <button class="btn-ghost" onclick="showPage('page4')">← Geri</button>
+  </div>
+</section>
+
+<!-- ALL CONTENT -->
+<section class="page" id="page-all">
+  <div class="all-grid">
+    <div class="all-header">
+      <p class="page-eyebrow">TÜM İÇERİK</p>
+      <div class="ornament" style="justify-content:flex-start;max-width:none;">✦</div>
+    </div>
+
+    <div class="all-section">
+      <p class="all-label">I — KARŞILAMA</p>
+      <p class="all-title">Doğum Gülün Kutlu Olsun</p>
+      <p class="all-body">Bugün dünyaya en değerli varlığım geldi. Doğum gülün kutlu olsun sevgilim!</p>
+      <button class="go-btn" onclick="showPage('page1')">Sayfaya Git →</button>
+    </div>
+
+    <div class="all-section">
+      <p class="all-label">II — MÜZİK</p>
+      <p class="all-title">Sevgilim İyi ki Doğdun — Pera</p>
+      <p class="all-body">Sana seçtiğim şarkı ve birlikte dinlemek istediklerimden oluşan playlist.</p>
+      <button class="go-btn" onclick="showPage('page2')">Sayfaya Git →</button>
+    </div>
+
+    <div class="all-section">
+      <p class="all-label">III — VİDEO</p>
+      <p class="all-title">Sana Özel Bir Video</p>
+      <p class="all-body">Seninle olan anlardan derlediğim, kalbimden sana uzanan bir video.</p>
+      <button class="go-btn" onclick="showPage('page3')">Sayfaya Git →</button>
+    </div>
+
+    <div class="all-section">
+      <p class="all-label">IV — MEKTUP</p>
+      <p class="all-title">Kalbimden Kalemime</p>
+      <p class="all-body">Sana yazmak istediğim ama yüz yüzeyken bir türlü tam söyleyemediğim şeyler.</p>
+      <button class="go-btn" onclick="showPage('page4')">Sayfaya Git →</button>
+    </div>
+
+    <div class="all-section">
+      <p class="all-label">V — SON SÖZ</p>
+      <p class="all-title">Şehirler Uzak Olsa Bile</p>
+      <p class="all-body">Şimdi şehirler uzak olabilir. Ama ben, ilk fırsatta yanındayım.</p>
+      <button class="go-btn" onclick="showPage('page5')">Sayfaya Git →</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* STARS */
+  (function(){
+    const c=document.getElementById('stars');
+    for(let i=0;i<88;i++){
+      const s=document.createElement('div'); s.className='star';
+      const sz=(Math.random()*1.8+0.4).toFixed(1);
+      const mn=(Math.random()*0.15+0.04).toFixed(2);
+      const mx=(Math.random()*0.45+0.25).toFixed(2);
+      s.style.cssText=`width:${sz}px;height:${sz}px;top:${(Math.random()*100).toFixed(1)}%;left:${(Math.random()*100).toFixed(1)}%;--dur:${(Math.random()*5+3).toFixed(1)}s;--delay:-${(Math.random()*8).toFixed(1)}s;--min-op:${mn};--max-op:${mx}`;
+      c.appendChild(s);
+    }
+  })();
+
+  /* NAVIGATION */
+  function showPage(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top:0});
+    // mektup ve tüm içerik sayfalarında body scroll açık olmalı
+    if(id==='page4'||id==='page-all'){
+      document.body.classList.add('is-scrollable');
+    } else {
+      document.body.classList.remove('is-scrollable');
+    }
+    if(id==='page4') startLetter();
+    if(id==='page5') stopMusic();
+  }
+
+  /* MUSIC */
+  function startExperience(){
+    showPage('page2');
+    document.getElementById('bgMusic').play()
+      .then(()=>setPlay(true)).catch(()=>{});
+  }
+  function toggleMusic(){
+    const a=document.getElementById('bgMusic');
+    if(a.paused){a.play();setPlay(true);}
+    else        {a.pause();setPlay(false);}
+  }
+  function stopMusic(){
+    document.getElementById('bgMusic').pause(); setPlay(false);
+  }
+  function setPlay(on){
+    document.getElementById('iconPlay').style.display  = on?'none':'block';
+    document.getElementById('iconPause').style.display = on?'block':'none';
+    const v=document.getElementById('vinyl');
+    on?v.classList.add('spinning'):v.classList.remove('spinning');
+  }
+
+  /* TYPEWRITER — mektup içeriği assets/mektup.js dosyasından gelir */
+  let _lt=null;
+  function startLetter(){
+    const LETTER = (window.MEKTUP || '').trim();
+    const body=document.getElementById('letter-body');
+    const sign=document.getElementById('letter-sign');
+    body.innerHTML='<span class="cursor"></span>';
+    sign.style.opacity='0';
+    if(_lt)clearTimeout(_lt);
+    let i=0;
+    function tick(){
+      if(i>=LETTER.length){
+        body.querySelector('.cursor')?.remove();
+        sign.style.transition='opacity 1.5s ease';
+        sign.style.opacity='1';
+        return;
+      }
+      const ch=LETTER[i]; const cur=body.querySelector('.cursor');
+      if(ch==='\n'){
+        cur?.before(document.createElement('br'));
+        if(LETTER[i+1]==='\n'){cur?.before(document.createElement('br'));i++;}
+      } else {
+        cur?.before(document.createTextNode(ch));
+      }
+      i++; _lt=setTimeout(tick,26);
+    }
+    _lt=setTimeout(tick,400);
+  }
+</script>
+</body>
+</html>
